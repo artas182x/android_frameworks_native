@@ -1067,10 +1067,10 @@ public:
     virtual void setTransform(uint32_t transform) {
         getLayer()->transform = transform;
     }
-    virtual void setFrame(const Rect& frame) {
+    virtual void __attribute__((optimize("no-strict-aliasing"))) setFrame(const Rect& frame) {
         reinterpret_cast<Rect&>(getLayer()->displayFrame) = frame;
     }
-    virtual void setCrop(const FloatRect& crop) {
+    virtual void __attribute__((optimize("no-strict-aliasing"))) setCrop(const FloatRect& crop) {
         reinterpret_cast<FloatRect&>(getLayer()->sourceCrop) = crop;
     }
     virtual void setVisibleRegionScreen(const Region& reg) {
