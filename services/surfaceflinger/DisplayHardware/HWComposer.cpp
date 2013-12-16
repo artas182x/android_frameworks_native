@@ -1067,11 +1067,15 @@ public:
     virtual void setTransform(uint32_t transform) {
         getLayer()->transform = transform;
     }
-    virtual void __attribute__((optimize("no-strict-aliasing"))) setFrame(const Rect& frame) {
+    virtual void setFrame(const Rect& frame) {
+#ifndef HWCOMPOSER_ALIASING_UNNECESSARY
         reinterpret_cast<Rect&>(getLayer()->displayFrame) = frame;
+#endif
     }
-    virtual void __attribute__((optimize("no-strict-aliasing"))) setCrop(const FloatRect& crop) {
+    virtual void setCrop(const FloatRect& crop) {
+#ifndef HWCOMPOSER_ALIASING_UNNECESSARY
         reinterpret_cast<FloatRect&>(getLayer()->sourceCrop) = crop;
+#endif
     }
     virtual void setVisibleRegionScreen(const Region& reg) {
         // Region::getSharedBuffer creates a reference to the underlying
