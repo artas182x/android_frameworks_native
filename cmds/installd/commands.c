@@ -561,8 +561,8 @@ int create_cache_path(char path[PKG_PATH_MAX], const char *src)
 
     const char *cache_path = DALVIK_CACHE_PREFIX;
     if (!strncmp(src, "/system", 7)) {
-        property_get("persist.dalvik.vm.dexopt-data-only", dexopt_data_only, "1");
-        if (strcmp(dexopt_data_only, "1") != 0) {
+        property_get("persist.dalvik.vm.dexopttocache", dexopt_data_only, "0");
+        if (strcmp(dexopt_data_only, "0") != 0) {
             cache_path = DALVIK_SYSTEM_CACHE_PREFIX;
         }
     }
