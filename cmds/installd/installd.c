@@ -697,7 +697,7 @@ static int log_callback(int type, const char *fmt, ...) {
     return 0;
 }
 
-static void* io_signal_handler(void* sig) {
+static void io_signal_handler(int sig) {
     sigset_t sigs_to_catch;
     int caught;
     sigemptyset(&sigs_to_catch);
@@ -705,7 +705,7 @@ static void* io_signal_handler(void* sig) {
     for (;;) {
         sigwait(&sigs_to_catch, &caught);
         if (SIGKILL == caught) {
-            return 0;
+            return;
         }
         pthread_mutex_lock(&io_mutex);
         pthread_cond_broadcast(&io_wait);
@@ -815,8 +815,8 @@ int main(const int argc, const char *argv[]) {
         close(s);
     }
 
-    pthread_kill(signal_thread, SIGKILL);
-    pthread_join(signal_thread, NULL);
+    pthread_kill(&signal_thread, SIGKILL);
+    pthread_join(&signal_thread, NULL);
 
     return 0;
 }
