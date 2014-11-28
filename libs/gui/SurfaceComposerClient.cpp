@@ -707,7 +707,7 @@ ScreenshotClient::~ScreenshotClient() {
 #ifdef TOROPLUS_RADIO
 status_t ScreenshotClient::update() {
     sp<ISurfaceComposer> sm(ComposerService::getComposerService());
-    return update(sm->getBuiltInDisplay(0));
+    return update(sm->getBuiltInDisplay(0), Rect(), false);
 }
 #endif
 
